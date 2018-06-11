@@ -1,0 +1,14 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Nikhil Lahoti",
+  "license": "ISC",
+  "dependencies": {
+    "@sweet-js/cli": "^3.0.13"
+  }
+}

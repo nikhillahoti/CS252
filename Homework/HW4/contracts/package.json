@@ -1,0 +1,15 @@
+{
+  "name": "contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "contracts.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Nikhil Lahoti",
+  "license": "ISC",
+  "dependencies": {
+    "@sweet-js/cli": "^3.0.13",
+    "mocha": "^5.1.0"
+  }
+}

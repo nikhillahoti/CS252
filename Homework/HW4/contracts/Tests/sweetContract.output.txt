@@ -1,0 +1,4 @@
+First test
+7
+Second test
+Contract violation in position 1. Expected number but received 4.  Blame -> Top-level code
