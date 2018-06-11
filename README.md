@@ -1,1 +1,1 @@
-# CS252
+# CS252 - Advanced Programming Language Principles
