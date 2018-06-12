@@ -1,0 +1,271 @@
+%\documentclass[twocolumn]{article}
+\documentclass{article}
+
+\title{Hello, \LaTeX}
+
+\author{
+  Thomas H. Austin \\
+  San Jos\'{e} State University \\
+  thomas.austin@sjsu.edu
+  }
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This paper is a sample intended to introduce you to the basics of formatting a document with \LaTeX.
+Read the TEX file, and not just the PDF, since there are valuable comments.
+\end{abstract}
+
+\section{Getting started with \LaTeX}
+LaTeX is designed to separate presentation details from the actual content.
+Although the two are mixed together in the file,
+reformatting for different style guides is fairly straightforward.
+Different organizations may offer their own custom Latex formatting templates.
+For instance, there is a Latex template for SJSU Master's theses;
+if you use it, the formatting details will (mostly) be covered for you,
+and you can simply focus on the content itself.
+
+Note the {\tt documentclass} command at the top of the tex file:
+% Verbatim tells LaTeX to ignore any commands you give and treat
+% the section as plain text.
+\begin{verbatim}
+     \documentclass{article}
+\end{verbatim}
+This command lets you specify the format of your document.
+A variety exist, such as:
+\begin{itemize}
+  \item {\tt article}
+  \item {\tt book}
+  \item {\tt letter}
+  \item {\tt beamer} for presentations
+\end{itemize}
+
+There are generally additional options for customizing the formatting.
+For instance, you might decide that your would prefer that the article used
+two columns for each page.
+To change the formatting, you would update the {\tt document class} command to:
+\begin{verbatim}
+     \documentclass[twocolumn]{article}
+\end{verbatim}
+where the square brackets denote optional, additional formatting details\footnote{
+The use of square brackets to specify optional arguments is a standard convention in LaTeX.
+}
+
+\section{Sections}\label{sec:section}
+LaTeX allows you to divide up a document into different subheadings.
+Sections are the top level in articles, and are typically numbered,
+(but this is configurable like everything else in LaTeX).
+Sections are specified with the following command:
+\begin{verbatim}
+      \section{Section name}
+\end{verbatim}
+
+\subsection{Subsections}
+Subsections allow you to further divide a section.
+\begin{verbatim}
+      \subsection{Section name}
+\end{verbatim}
+
+\subsubsection{Subsubsections}
+And subsubsections allow us to go one level deeper. 
+\begin{verbatim}
+      \subsubsection{Section name}
+\end{verbatim}
+
+
+% Note the escape \&
+\section{Labels \& References}
+Section~\ref{sec:section} shows us how to create new sections
+and subsections.
+Often, we will need to refer to a different section.
+However, as we reorganize the document it might quickly get unmanageable to update all of these references.
+Fortunately, LaTeX makes our lives a little easier.
+Instead of hard-coding a section number,
+we can attach a {\em label} to identify the section,
+and then use a {\em ref} to refer to it.
+LaTeX will update the references and save us the trouble.
+
+Here is the tex to identify the previous section:
+\begin{verbatim}
+      \section{Sections}\label{sec:section}
+\end{verbatim}
+
+To later refer to this section in our document, we type:
+\begin{verbatim}
+      Section~\ref{sec:section}
+\end{verbatim}
+
+\noindent
+You might have noticed the \textasciitilde.
+This character creates a non-breaking space.
+It is not required, but is generally looks better if
+the section number is on the same line as the word ``Section''.
+
+Also, the use of {\tt sec:} in the label name is just a convention,
+indicating that it refers to a section, and not a table or figure.
+
+\subsection{Updating references}
+One note of warning:
+when references change, you typically will need to run latex multiple times.
+\begin{enumerate}
+  \item The first time you run latex, it will note all missing references.
+  \item The second time you run latex, it will fill in the references appropriately (if it can find them).
+\end{enumerate}
+
+\noindent
+Additional passes of latex might be needed if you are using bibtex,
+discussed in Section~\ref{sec:bibtex}.
+
+\section{Math}
+
+The major benefit of LaTeX lies in the ease with which we represent mathematical formulas.
+For instance, we could represent one of our operational semantics rules as:
+\[
+  x,\sigma \Downarrow \sigma(x),\sigma
+\]
+
+\noindent
+which was produced using the following tex code:
+\begin{verbatim}
+    \[
+        x,\sigma \Downarrow \sigma(x),\sigma
+    \]
+\end{verbatim}
+
+This version is useful, but there might be times
+where you would want to inline statements like $x,\sigma \Downarrow \sigma(x),\sigma$.
+In this case, dollar signs can be used instead:
+\begin{verbatim}
+       $x,\sigma \Downarrow \sigma(x),\sigma$
+\end{verbatim}
+
+Both variants switch latex into {\em math mode}.
+
+\begin{figure}\caption{A sample figure}\label{fig:sampleFig}
+\begin{verbatim}
+  \begin{figure}\caption{A sample figure}\label{fig:sampleFig}
+  ...
+  \end{figure}
+\end{verbatim}
+\end{figure}
+
+\section{Commands}
+You might find that you are repeating the same series of commands over and over again.
+if that is the case, you can create a new {\em command}.
+For instance, if I want to produce some text three times,
+I could create the following command:
+\newcommand{\threetimes}[1]{#1#1#1}
+\begin{verbatim}
+        \newcommand{\threetimes}[1]{#1#1#1}
+\end{verbatim}
+
+Now, I can use {\textbackslash}threetimes\{hello there! \} to produce:
+\threetimes{hello there! }
+
+You can pass as many arguments as you like.
+Commands end up being a huge timesaver if you need to typeset
+repetitive mathematical proofs.
+
+\section{Figures and Tables}
+You may wish to inject some results, tables, code examples, etc.
+into your tex documents.
+Figure~\ref{fig:sampleFig} shows the syntax to create a new figure
+with a label.
+
+In LaTeX, you will often want to present results in a tabular format.
+A sample table is given here:~\\~\\
+
+    \begin{tabular}{| l c r |}
+    \hline
+    1 & 2 & 3 \\
+    4 & 5 & 6 \\
+    7 & 8 & 9 \\
+    \hline
+    \end{tabular}
+
+\smallskip
+
+This latex code is:
+\begin{verbatim}
+    \begin{tabular}{| l c r |}
+    \hline
+    1 & 2 & 3 \\
+    4 & 5 & 6 \\
+    7 & 8 & 9 \\
+    \hline
+    \end{tabular}
+\end{verbatim}
+
+The \& character is used as a separator,
+and the \textbackslash\textbackslash is used to delimit rows.
+The {\tt {\textbackslash}hline} creates a horizontal line,
+giving the upper and lower borders for our table.
+In the first tabular line, pipe symbols (\textbar) are used to indicate vertical rows.
+The letters l, c, and r indicate whether each field is left-justified, centered,
+or right-justified.
+
+To create a grid, we could instead write:
+This latex code is:
+
+\begin{verbatim}
+    \begin{tabular}{| l | c | r |}
+    \hline
+    1 & 2 & 3 \\
+    \hline
+    4 & 5 & 6 \\
+    \hline
+    7 & 8 & 9 \\
+    \hline
+    \end{tabular}
+\end{verbatim}
+
+\noindent
+Resulting in:~\\~\\
+
+    \begin{tabular}{| l | c | r |}
+    \hline
+    1 & 2 & 3 \\
+    \hline
+    4 & 5 & 6 \\
+    \hline
+    7 & 8 & 9 \\
+    \hline
+    \end{tabular}
+
+\section{More references and Bibtex}\label{sec:bibtex}
+To learn more about LaTeX,
+see Leslie Lamport's text~\cite{lamport}.
+Knuth~\cite{literate} discusses literate programming,
+which was a concept inspired by his work on TeX.
+
+Note that we are using bibtex to track these references.
+We store our references in a separate file.
+Latex will determine which citations are used,
+and will format them according to our specifications.
+To use bibtex:
+\begin{enumerate}
+\item Use the latex command  to get the references needed.
+\item Use bibtex to pull the citation details.
+\item Use latex again to update the  references in the text.
+\item Run latex one last time to ensure that all references are in sync.
+\end{enumerate}
+
+Some types of BibTeX entries:
+\begin{itemize}
+  \item {\tt article} -- An article from a journal or magazine.
+  \item {\tt book} -- A published book.
+  \item {\tt inproceedings} -- An article in conference proceedings.
+  \item {\tt mastersthesis} -- Hopefully obvious.
+  \item {\tt phdthesis} -- Also, hopefully obvious.
+  \item {\tt proceedings} -- The proceedings (i.e., all of the accepted papers) for a conference.
+  \item {\tt misc} -- None of the above.
+\end{itemize}
+
+Note that the above list is not exhaustive.
+
+\bibliographystyle{plainurl}
+%\bibliographystyle{alpha}
+\bibliography{biblio}
+
+\end{document}
